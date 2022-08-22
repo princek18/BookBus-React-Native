@@ -37,6 +37,7 @@ export default function LoginScreen({ navigation }) {
           res.data.user.firstName + " " + res.data.user.lastName
         );
         await AsyncStorage.setItem("userType", res.data.user.userType);
+        await AsyncStorage.setItem("userId", res.data.user._id);
         setIsLoggedIn(true);
         navigation.navigate("filter");
       })

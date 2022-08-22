@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useContext } from "react";
 import { LoginContext } from "../Context/LoginContextProvider";
 import HomeNavigator from "../Navigators/HomeNavigator";
+import { BookedTicketListScreen } from "../Screens/BookedTicketListScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import WalletBalanceScreen from "../Screens/WalletBalanceScreen";
 import { logout } from "../Utils/Utils";
@@ -48,6 +49,13 @@ export default function AppDrawer() {
         }}
         name="Home"
         component={HomeNavigator}
+      />
+      <Drawer.Screen
+        name="Booked"
+        options={{
+          title: "My Bookings",
+        }}
+        component={BookedTicketListScreen}
       />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
       <Drawer.Screen name="Wallet" component={WalletBalanceScreen} />

@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { logout, requestAPI } from "../Utils/Utils";
+import { logout, requestAPI, ResponseModal } from "../Utils/Utils";
 import { Loader } from "../Loader/Loader";
 import { Card, Button, Dialog, Input } from "react-native-elements";
 import { LoginContext } from "../Context/LoginContextProvider";
@@ -118,6 +118,8 @@ export default function ReviewScreen({ route, navigation }) {
   const [isAddBalanceModalOpen, setIsAddBalanceModalOpen] = useState(false);
   const [isBalanceModal, setIsBalanceModal] = useState(false);
   const [balance, setBalance] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
+  const [isResponseModal, setIsResponseModal] = useState(false);
   const { state } = useContext(LoginContext);
   const [isLoggedIn, setIsLoggedIn] = state;
 
@@ -142,7 +144,8 @@ export default function ReviewScreen({ route, navigation }) {
         })
         .catch((err) => {
           setLoader(false);
-          console.log(err?.response?.data?.message);
+          setResponseMessage(err?.response?.data?.message);
+          setIsResponseModal(true);
           if (err?.response?.data?.message === "Authentication Failed.") {
             logout();
             setIsLoggedIn(false);
@@ -171,6 +174,8 @@ export default function ReviewScreen({ route, navigation }) {
           setLoader(false);
           setBalance("");
           setPassword("");
+          setResponseMessage(err?.response?.data?.message);
+          setIsResponseModal(true);
           if (err?.response?.data?.message === "Authentication Failed.") {
             logout();
             setIsLoggedIn(false);
@@ -190,6 +195,8 @@ export default function ReviewScreen({ route, navigation }) {
       })
       .catch((err) => {
         setLoader(false);
+        setResponseMessage(err?.response?.data?.message);
+        setIsResponseModal(true);
         if (err.response.data.message === "Authentication Failed.") {
           logout();
           setIsLoggedIn(false);
@@ -276,6 +283,11 @@ export default function ReviewScreen({ route, navigation }) {
         setBalance={setBalance}
         setIsBalanceModal={setIsBalanceModal}
         setIsPasswordModalOpen={setIsPasswordModalOpen}
+      />
+      <ResponseModal
+        message={responseMessage}
+        isVisible={isResponseModal}
+        setIsVisible={setIsResponseModal}
       />
     </View>
   );

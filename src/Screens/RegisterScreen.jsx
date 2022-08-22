@@ -34,14 +34,15 @@ export default function RegisterScreen({ navigation }) {
   }, [userForm]);
 
   const handleRegister = () => {
-    delete userForm.cpassword;
     setLoader(true);
     requestAPI("POST", "/signup", userForm, null)
       .then((res) => {
         setLoader(false);
         if (res.status === 200) {
-          console.log(res.data);
+          setResponseMessage(res.data.message);
+          setIsResponseModal(true);
           setTimeout(() => {
+            delete userForm.cpassword;
             navigation.navigate("Login");
           }, 2000);
         }

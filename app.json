@@ -4,10 +4,10 @@
     "slug": "reactNativeDemo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo-red.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-custum.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,12 +22,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo-red.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.princek18.reactNativeDemo"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo-red.png"
     },
     "description": ""
   }

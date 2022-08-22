@@ -31,16 +31,13 @@ export default function PassengersDetails({ route, navigation }) {
     age: "",
     gender: "",
   });
-  const passengers = {
-    passenger1,
-    passenger2,
-    passenger3,
-    passenger4,
-  };
+
+  const passengersList = [passenger1, passenger2, passenger3, passenger4];
+
   const handleSubmit = (e) => {
     let PassengersDetails = [];
     for (let i = 0; i < selectedSeat.length; i++) {
-      PassengersDetails.push(passengers[`passenger${i + 1}`]);
+      PassengersDetails.push(passengersList[i]);
     }
     let error = false;
     for (let i = 0; i < PassengersDetails.length; i++) {
@@ -75,7 +72,7 @@ export default function PassengersDetails({ route, navigation }) {
                 <Card>
                   <Text>Name:</Text>
                   <Input
-                    value={`passenger${i + 1}`.name}
+                    value={passengersList[i].name}
                     onChangeText={(text) =>
                       i === 0
                         ? setPassenger1((pre) => ({ ...pre, name: text }))
@@ -90,7 +87,7 @@ export default function PassengersDetails({ route, navigation }) {
                   />
                   <Text>Age:</Text>
                   <Input
-                    value={`passenger${i + 1}`.age}
+                    value={passengersList[i].age}
                     onChangeText={(text) =>
                       i === 0
                         ? setPassenger1((pre) => ({ ...pre, age: text }))
@@ -106,7 +103,7 @@ export default function PassengersDetails({ route, navigation }) {
                   <Text>Gender:</Text>
                   <View style={styles.pickerContainer}>
                     <Picker
-                      selectedValue={`passenger${i + 1}`.gender}
+                      selectedValue={passengersList[i].gender}
                       style={styles.picker}
                       onValueChange={(itemValue, itemIndex) => {
                         if (itemValue !== "") {

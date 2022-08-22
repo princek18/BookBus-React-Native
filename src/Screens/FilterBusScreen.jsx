@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Loader } from "../Loader/Loader";
-import { logout, requestAPI } from "../Utils/Utils";
+import { logout, requestAPI, ResponseModal } from "../Utils/Utils";
 import { Card, Button } from "react-native-elements";
 import { Picker } from "@react-native-picker/picker";
 import moment from "moment";
@@ -31,6 +31,8 @@ export const FilterBusScreen = ({ navigation, drawerNavigation }) => {
   });
   const { state } = useContext(LoginContext);
   const [isLoggedIn, setIsLoggedIn] = state;
+  const [responseMessage, setResponseMessage] = useState("");
+  const [isResponseModal, setIsResponseModal] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -41,7 +43,8 @@ export const FilterBusScreen = ({ navigation, drawerNavigation }) => {
       })
       .catch((err) => {
         setLoader(false);
-        console.log(err?.response?.data?.message);
+        setResponseMessage(err?.response?.data?.message);
+        setIsResponseModal(true);
         if (err.response.data.message === "Authentication Failed.") {
           logout();
           setIsLoggedIn(false);
@@ -58,7 +61,8 @@ export const FilterBusScreen = ({ navigation, drawerNavigation }) => {
       })
       .catch((err) => {
         setLoader(false);
-        console.log(err?.response?.data?.message);
+        setResponseMessage(err?.response?.data?.message);
+        setIsResponseModal(true);
         if (err.response.data.message === "Authentication Failed.") {
           logout();
           setIsLoggedIn(false);
@@ -132,9 +136,12 @@ export const FilterBusScreen = ({ navigation, drawerNavigation }) => {
         })
         .catch((err) => {
           setLoader(false);
-          console.log(err.response.data.message);
+          setResponseMessage(err?.response?.data?.message);
+          setIsResponseModal(true);
           if (err.response.data.message === "Authentication Failed.") {
             logout();
+            setIsLoggedIn(false);
+            navigation.navigate("Login");
           }
         });
     }
@@ -270,6 +277,11 @@ export const FilterBusScreen = ({ navigation, drawerNavigation }) => {
           <Button title="Submit" onPress={handleSubmit} />
         </Card>
       </View>
+      <ResponseModal
+        message={responseMessage}
+        isVisible={isResponseModal}
+        setIsVisible={setIsResponseModal}
+      />
     </View>
   );
 };

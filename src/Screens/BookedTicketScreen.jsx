@@ -40,7 +40,8 @@ export default function BookedTicketScreen({ route, navigation }) {
       })
       .catch((err) => {
         setLoader(false);
-        console.log(err?.response?.data?.message);
+        setResponseMessage(err?.response?.data?.message);
+        setResponsePopUpModal(true);
         if (err?.response?.data?.message === "Authentication Failed.") {
           logout();
           setIsLoggedIn(false);
